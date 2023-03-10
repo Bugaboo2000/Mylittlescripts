@@ -4,7 +4,7 @@
 
 <p> Download the file with the command: </p>
 
-<pre>curl -O https://raw.githubusercontent.com/Bugaboo2000/Mylittlescripts/main/updater.sh</pre>
+<pre>curl -O https://raw.githubusercontent.com/Bugaboo2000/Mylittlescripts/main/termux-updater/updater.sh </pre>
 <br>
 <p>Mark as Executable with the command:</p>
 
