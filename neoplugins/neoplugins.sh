@@ -18,6 +18,20 @@ source $HOME/.local/share/nvim/site/autoload/plug.vim\ncall plug#begin('$HOME/.l
     exit 0
 }
 
+Gitlink(){
+    which "git" 
+    if which git >/dev/null; then
+  $gitlink
+  wait
+  git clone "$gitlink"
+else
+  dialog --title "Git not Found" --msgbox "Git is not installed, make sure to install git package." 0 0
+    
+    gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60)
+        wait
+        fi
+    }
+
 MenuBox() {
     dialog --menu "Plugvim helper" 15 50 40 \
     1 "Setup plugvim" \
@@ -39,10 +53,21 @@ while true; do
     case $MenuChoice in
         1) Plugvim;;
         2) echo "Install a plugin";;
-        3) echo "Uninstall a plugin";;
+        3) Gitlink;;
         4) echo "Install recommended plugins";;
         5) echo "Configure nvim";;
         6) exit 0;;
     esac
 done
+
+Pluginstall(){
+
+plugin=$()
+$plugin
+wait
+git clone "$plugin"
+
+
+}
+
 
