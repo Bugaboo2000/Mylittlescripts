@@ -8,29 +8,25 @@ Plugvim() {
     vimconfig=$(touch $HOME/.config/nvim/init.vim)
     $vimconfig
     wait
-    echo 
-"
-source $HOME/.local/share/nvim/site/autoload/plug.vim\ncall plug#begin('$HOME/.local/share/nvim/site/autoload/plugins')\ncall plug#end()\n" >> $HOME/.config/nvim/init.vim
-
+    echo -e "source $HOME/.local/share/nvim/site/autoload/plug.vim\ncall plug#begin('$HOME/.local/share/nvim/site/autoload/plugins')\ncall plug#end()\n" >> $HOME/.config/nvim/init.vim
     wait
-    dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 6 0
+    dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 60
     wait
     exit 0
 }
 
 Gitlink(){
-    which "git" 
-    if which git >/dev/null; then
-  $gitlink
-  wait
-  git clone "$gitlink"
+
+if which "git">/dev/null; then
+    gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
+    git clone "$gitlink"
 else
-  dialog --title "Git not Found" --msgbox "Git is not installed, make sure to install git package." 0 0
-    
-    gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60)
-        wait
-        fi
-    }
+    dialog --title "Git not Found" --msgbox "Git is not installed, make sure to install git package." 7 60
+fi
+
+
+}
+
 
 MenuBox() {
     dialog --menu "Plugvim helper" 15 50 40 \
