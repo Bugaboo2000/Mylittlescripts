@@ -20,6 +20,9 @@ Gitlink(){
 if which "git">/dev/null; then
     gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
     git clone "$gitlink"
+    wait
+    exit 0
+
 else
     dialog --title "Git not Found" --msgbox "Git is not installed, make sure to install git package." 7 60
 fi
@@ -48,22 +51,12 @@ while true; do
     MenuChoice=$(MenuBox)
     case $MenuChoice in
         1) Plugvim;;
-        2) echo "Install a plugin";;
-        3) Gitlink;;
+        2) Gitlink;;
+        3) echo "Uninstall a plugin";;
         4) echo "Install recommended plugins";;
         5) echo "Configure nvim";;
         6) exit 0;;
     esac
 done
-
-Pluginstall(){
-
-plugin=$()
-$plugin
-wait
-git clone "$plugin"
-
-
-}
 
 
