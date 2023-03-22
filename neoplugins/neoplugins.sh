@@ -33,6 +33,15 @@ fi
 
 }
 
+Plugdel(){
+        choice=$(dialog --title "Choose a plugin to Uninstall" --output-fd 1 --dselect $HOME/.local/share/nvim/site/autoload/plugins/ 7 60)
+        wait
+        rm -rf "$choice"
+
+                }
+
+
+
 MenuBox(){
     dialog --menu 'Plugvim helper' 15 50 40 \
     1 'Setup plugvim' \
@@ -64,7 +73,7 @@ while true; do
     case $MenuChoice in
         1) Plugvim;;
         2) Gitlink;;
-        3) echo 'Uninstall a plugin';;
+        3) Plugdel;;
         4) echo 'Install recommended plugins';;
         5) Nvimconf;;
         6) exit 0;;
