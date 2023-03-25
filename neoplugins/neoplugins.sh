@@ -40,8 +40,15 @@ Plugdel(){
 
                 }
 
+Essentials(){
+    dialog --menu 'Recomended plugins' 15 50 40 \
+    1 'Ale debugger' \
+    2 'fugitive git integration' \
+    3 'vim polyglot' \
+    4 'Exit' \
+    2>&1 >/dev/tty 
 
-
+}
 MenuBox(){
     dialog --menu 'Plugvim helper' 15 50 40 \
     1 'Setup plugvim' \
@@ -74,7 +81,7 @@ while true; do
         1) Plugvim;;
         2) Gitlink;;
         3) Plugdel;;
-        4) echo 'Install recommended plugins';;
+        4) Essentials;;
         5) Nvimconf;;
         6) exit 0;;
     esac
