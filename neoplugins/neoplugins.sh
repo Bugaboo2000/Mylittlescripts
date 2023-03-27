@@ -1,33 +1,33 @@
 #!/bin/bash
 
 Plugvim(){ 
-    if which "plug.vim">/dev/null; then
-    plugvim="sh -c 'curl -O\"${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim\" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'"
-    $plugvim
+    if which "plug.vim">/dev/null
+    then
+    sh -c 'curl -O\"${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim\" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     wait
-    vimconfig=$(touch $HOME/.config/nvim/init.vim)
-    $vimconfig
+    touch $HOME/.config/nvim/init.vim
     wait
     echo -e "source $HOME/.local/share/nvim/site/autoload/plug.vim\ncall plug#begin('$HOME/.local/share/nvim/site/autoload/plugins')\ncall plug#end()\n" >> $HOME/.config/nvim/init.vim
     wait
     dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 60
     wait
     exit 0
-else
-    dialog --title "Plugvim setup" --msgbox "Vim plug already installed" 7 60
+#else
+ #dialog --title "Plugvim setup" --msgbox "Vim plug already installed" 7 60
     fi 
 }
 
 Gitlink(){
 
-if which "git">/dev/null; then
+if which "git">/dev/null
+	then
     gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
-    git clone "$gitlink"
+    cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink"
     wait
     exit 0
 
 else
-    dialog --title "Git not Found" --msgbox "Git is not installed, make sure to install git package." 7 60
+ dialog --title "Git not Found" --msgbox "Git is not installed, make sure to install git package." 7 60
 fi
 
 
@@ -63,7 +63,7 @@ MenuBox(){
 
 Nvimconf(){
     dialog --menu "Nvim settings" 15 50 40 \
-        1 'Enable numbers' \
+        1 'Enable number' \
         2 'Enable "cursorline' \
         3 'Enable syntax' \
         4 'Change colorscheme' \
@@ -87,10 +87,20 @@ while true; do
     esac
 done 
 
+while true;do 
+	autoinstall=$(Essentials)
+		case autoinstall in
+	1) ;;
+	2) ;;
+	3) ;;
+	4) exit 0;
+esac
+	done
+
     while true; do
         nvimsetup=$(Nvimconf)
         case nvimsetup in 
-        1) echo "set numbers" >> $HOME/.config/nvim/init.vim;;
+        1) echo "set number" >> $HOME/.config/nvim/init.vim;;
         2) echo "set cursorline" >> $HOME/.config/nvim/init.vim;;
         3) echo ":syntax enable" >> $HOME/.config/nvim/init.vim;;
         4) dialog --title "Colorscheme setup" --msgbox "Not implemented yet" 7 60;;
