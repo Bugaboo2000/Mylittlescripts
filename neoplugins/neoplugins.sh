@@ -76,8 +76,33 @@ Nvimconf(){
         2>&1 >/dev/tty
     }
 
-
-
+    Colorschemes(){
+    dialog --menu "Change colorscheme" 15 50 40 \
+        1 'Blue' \
+        2 'DarkBlue' \
+        3 'Delek' \
+        4 'Desert' \
+        5 'Elflord' \
+        6 'Evening' \
+        7 'Habamax' \
+        8 'Industry' \
+        9 'Koehler' \
+        10 'Lunaperche' \
+        11 'Morning' \
+        12 'Murphy' \
+        13 'Pablo' \
+        14 'Peachpuff' \
+        15 'Quiet' \
+        16 'Ron' \
+        17 'Shine' \
+        18 'Slate' \
+        19 'Torte' \
+        20 'Zellner' \
+        21 'Default' \
+        22 'Custom colorscheme' \
+        23 'Exit' \
+        2>&1 > /dev/tty 
+}
 while true; do
     MenuChoice=$(MenuBox)
     case $MenuChoice in
@@ -93,16 +118,13 @@ done
 while true;do 
 	autoinstall=$(Essentials)
 		case autoinstall in
-# All of thess tools needs git clone and some way to clone to point to vimplug folder. 
-# Need to find a way to implement plugin configuration with cat and nvim parameters
-
 1)  cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
     git clone https://github.com/dense-analysis/ale.git;;
 	2)cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
     git clone https://github.com/tpope/vim-fugitive.git;;
-	3)cd $HOME/.local/share}/nvim/site/autoload/plug.vim 
+	3)cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
     git clone https://github.com/sheerun/vim-polyglot.git;;
-	4) exit 0;
+	4) exit 0;;
 esac
 	done
 
@@ -112,10 +134,9 @@ esac
         1) echo "set number" >> $HOME/.config/nvim/init.vim;;
         2) echo "set cursorline" >> $HOME/.config/nvim/init.vim;;
         3) echo ":syntax enable" >> $HOME/.config/nvim/init.vim;;
-#I have an idea to call another condition in option 4, so the user can select what color they want
-        4) dialog --title "Colorscheme setup" --msgbox "Not implemented yet" 7 60;;
+        4) Colorschemes;;
         5) nvim $HOME/.config/nvim/init.vim;;
         6) MenuBox;;
         7) exit 0;;
-    esac
-        done 
+esac
+    done 
