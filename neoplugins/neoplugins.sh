@@ -1,7 +1,7 @@
 #!/bin/bash
 
 Plugvim(){ 
-    if which "plug.vim">/dev/null
+    if [which "plug.vim">/dev/null]
     then
     sh -c 'curl -O\"${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim\" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     wait
@@ -12,14 +12,18 @@ Plugvim(){
     dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 60
     wait
     exit 0
-#else
- #dialog --title "Plugvim setup" --msgbox "Vim plug already installed" 7 60
+
+# Enabled else again. I'm editing this on Termux, and have a lot of incompatibilites
+# running normal on my Desktop
+
+else
+ dialog --title "Plugvim setup" --msgbox "Vim plug already installed" 7 60
     fi 
 }
 
 Gitlink(){
 
-if which "git">/dev/null
+if [which "git">/dev/null]
 	then
     gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
     cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink"
@@ -37,8 +41,7 @@ Plugdel(){
         choice=$(dialog --title "Choose a plugin to Uninstall" --output-fd 1 --dselect $HOME/.local/share/nvim/site/autoload/plugins/ 7 60)
         wait
         rm -rf "$choice"
-
-                }
+}
 
 Essentials(){
     dialog --menu 'Recomended plugins' 15 50 40 \
@@ -90,9 +93,15 @@ done
 while true;do 
 	autoinstall=$(Essentials)
 		case autoinstall in
-	1) ;;
-	2) ;;
-	3) ;;
+# All of thess tools needs git clone and some way to clone to point to vimplug folder. 
+# Need to find a way to implement plugin configuration with cat and nvim parameters
+
+1)  cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
+    git clone https://github.com/dense-analysis/ale.git;;
+	2)cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
+    git clone https://github.com/tpope/vim-fugitive.git;;
+	3)cd $HOME/.local/share}/nvim/site/autoload/plug.vim 
+    git clone https://github.com/sheerun/vim-polyglot.git;;
 	4) exit 0;
 esac
 	done
@@ -103,6 +112,7 @@ esac
         1) echo "set number" >> $HOME/.config/nvim/init.vim;;
         2) echo "set cursorline" >> $HOME/.config/nvim/init.vim;;
         3) echo ":syntax enable" >> $HOME/.config/nvim/init.vim;;
+#I have an idea to call another condition in option 4, so the user can select what color they want
         4) dialog --title "Colorscheme setup" --msgbox "Not implemented yet" 7 60;;
         5) nvim $HOME/.config/nvim/init.vim;;
         6) MenuBox;;
