@@ -146,26 +146,26 @@ esac
         case colors in 
             1) echo ":colorscheme blue";;
             2) echo ":colorscheme darkblue";;
-            3)echo "";;
-            4)echo "";;
-            5)echo "";;
-            6)echo "";;
-            7)echo"";;
-            8)echo"";;
-            9)echo "";;
-            10)echo "";;
-            11)echo "";;
-            12)echo "";;
-            13)echo "";;
-            14)echo"";;
-            15)echo"";;
-            16)echo"";;
-            17)echo"";; 
-            18)echo"";;
-            19)echo"";;
-            20)echo"";;
-            21)echo "";;
-            22)echo"";;
+            3)echo ":colorscheme delek";;
+            4)echo ":colorscheme desert";;
+            5)echo ":colorscheme elford";;
+            6)echo ":colorscheme evening";;
+            7)echo":colorscheme habamax";;
+            8)echo":colorscheme industry";;
+            9)echo ":colorscheme koehler";;
+            10)echo ":colorscheme lunaperche";;
+            11)echo ":colorscheme morning";;
+            12)echo ":colorscheme murphy";;
+            13)echo ":colorscheme pablo";;
+            14)echo":colorscheme peachpuff";;
+            15)echo":colorscheme quiet";;
+            16)echo":colorscheme ron";;
+            17)echo":colorscheme shine";; 
+            18)echo":colorscheme slate";;
+            19)echo":colorscheme torte";;
+            20)echo":colorscheme zellner";;
+            21)echo ":colorscheme default";;
+#            22)dialog --msgbox ;;
             23)exit 0;;
 esac
     done
