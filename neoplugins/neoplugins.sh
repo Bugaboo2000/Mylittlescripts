@@ -1,5 +1,33 @@
 #!/bin/bash
 
+  
+menubox=$(dialog --menu 'Plugvim helper' 15 50 40 \
+1 'Setup plugvim' \
+2 'Install a plugin' \
+3 'Uninstall a plugin' \
+4 'Install recommended plugins' \
+5 'Configure nvim' \
+6 'Exit' \
+2>&1 >/dev/tty)
+case $menubox in
+1) Plugvim;;
+2) 
+# Testing this metod
+# I have plans to combine all in a unique big condition
+# Seems useful to avoid looping or bugs mistakes
+
+gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
+cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink"
+;;
+
+3) Plugdel;;
+4) Essentials;;
+5) Nvimconf;;
+6) exit 0;;
+esac
+
+
+
 Plugvim(){ 
 #    if [which "plug.vim">/dev/null]
 #    This is my original solution
@@ -24,21 +52,12 @@ else
     fi 
 }
 
-Gitlink(){
+Gitlinkbackup(){
 
-# if [which "git">/dev/null]
-# Alternative solution 2
- if [ -x "$(command -v git)"]; then 
-    gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
-    cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink"
-    wait
-    exit 0
-
-else
- dialog --title "Git not Found" --msgbox "Git is not installed, make sure to install git package." 7 60
-fi
-
-
+# if [ -x "$(command -v git)"]; then 
+# i'm removing these conditions shit because is more causing bugs than helping
+gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
+    cd $HOME/.local/share/nvim/site/autoload/ && git clone "$gitlink"
 }
 
 Plugdel(){
@@ -48,28 +67,30 @@ Plugdel(){
 }
 
 Essentials(){
-    dialog --menu 'Recomended plugins' 15 50 40 \
+    while true; do
+    essentials=$(dialog --menu 'Recomended plugins' 15 50 40 \
     1 'Ale debugger' \
     2 'fugitive git integration' \
     3 'vim polyglot' \
     4 'Exit' \
-    2>&1 >/dev/tty 
+    2>&1 >/dev/tty)
+    case essentials in
+    1) cd $HOME/.local/share}/nvim/site/autoload/plug.vim
+    git clone https://github.com/dense-analysis/ale.git;;
+    2)cd $HOME/.local/share}/nvim/site/autoload/plug.vim
+    git clone https://github.com/tpope/vim-fugitive.git;;
+    3)cd $HOME/.local/share}/nvim/site/autoload/plug.vim
+    git clone https://github.com/sheerun/vim-polyglot.git;;
+    4) exit 0;;
+    esac
+done
 
 }
-MenuBox(){
-    dialog --menu 'Plugvim helper' 15 50 40 \
-    1 'Setup plugvim' \
-    2 'Install a plugin' \
-    3 'Uninstall a plugin' \
-    4 'Install recommended plugins' \
-    5 'Configure nvim' \
-    6 'Exit' \
-    2>&1 >/dev/tty
 
-}
 
 Nvimconf(){
-    dialog --menu "Nvim settings" 15 50 40 \
+    while true; do
+    nvimconf=$(dialog --menu "Nvim settings" 15 50 40 \
         1 'Enable number' \
         2 'Enable "cursorline' \
         3 'Enable syntax' \
@@ -77,11 +98,22 @@ Nvimconf(){
         5 'Manual settings' \
         6 'Return' \
         7 'Exit' \
-        2>&1 >/dev/tty
+        2>&1 >/dev/tty)
+case nvimconf in
+    1) echo "set number" >> $HOME/.config/nvim/init.vim;;
+    2) echo "set cursorline" >> $HOME/.config/nvim/init.vim;;
+    3) echo ":syntax enable" >> $HOME/.config/nvim/init.vim;;
+    4) Colorschemes;;
+    5) nvim $HOME/.config/nvim/init.vim;;
+    6) MenuBox;;
+    7) exit 0;;
+    esac
+    done
     }
 
     Colorschemes(){
-    dialog --menu "Change colorscheme" 15 50 40 \
+    while true; do
+    colorschemes=$(dialog --menu "Change colorscheme" 15 50 40 \
         1 'Blue' \
         2 'DarkBlue' \
         3 'Delek' \
@@ -105,53 +137,8 @@ Nvimconf(){
         21 'Default' \
         22 'Custom colorscheme' \
         23 'Exit' \
-        2>&1 > /dev/tty 
-}
-
-# You need to put this conditions inside the variables
-# This solution is dumb like the guy who's code this shittybox
-# Maybe another time i'm gonna reintegrate the conditions inside the variables
-while true; do
-    MenuChoice=$(MenuBox)
-    case $MenuChoice in
-        1) Plugvim;;
-        2) Gitlink;;
-        3) Plugdel;;
-        4) Essentials;;
-        5) Nvimconf;;
-        6) exit 0;;
-    esac
-done 
-
-while true;do 
-	autoinstall=$(Essentials)
-		case autoinstall in
-1)  cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
-    git clone https://github.com/dense-analysis/ale.git;;
-	2)cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
-    git clone https://github.com/tpope/vim-fugitive.git;;
-	3)cd $HOME/.local/share}/nvim/site/autoload/plug.vim \
-    git clone https://github.com/sheerun/vim-polyglot.git;;
-	4) exit 0;;
-esac
-	done
-
-    while true; do
-        nvimsetup=$(Nvimconf)
-        case nvimsetup in 
-        1) echo "set number" >> $HOME/.config/nvim/init.vim;;
-        2) echo "set cursorline" >> $HOME/.config/nvim/init.vim;;
-        3) echo ":syntax enable" >> $HOME/.config/nvim/init.vim;;
-        4) Colorschemes;;
-        5) nvim $HOME/.config/nvim/init.vim;;
-        6) MenuBox;;
-        7) exit 0;;
-esac
-    done 
-
-    while true; do
-        colors=$(Colorschemes)
-        case colors in 
+        2>&1 > /dev/tty)
+        case colorschemes in 
             1) echo ":colorscheme blue" >> $HOME/.config/nvim/init.vim;;
             2) echo ":colorscheme darkblue" >> $HOME/.config/nvim/init.vim;;
             3)echo ":colorscheme delek" >> $HOME/.config/nvim/init.vim;;
@@ -177,3 +164,4 @@ esac
             23)exit 0;;
 esac
     done
+}
