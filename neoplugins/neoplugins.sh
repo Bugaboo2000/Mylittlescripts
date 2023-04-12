@@ -10,56 +10,31 @@ menubox=$(dialog --menu 'Plugvim helper' 15 50 40 \
 6 'Exit' \
 2>&1 >/dev/tty)
 case $menubox in
-1) Plugvim;;
+1) 
+sh -c 'curl -O\"${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim\" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+wait
+touch $HOME/.config/nvim/init.vim
+wait
+mkdir $HOME/.local/share/nvim/site/autoload/plugins/
+echo -e "source $HOME/.local/share/nvim/site/autoload/plug.vim\ncall plug#begin('$HOME/.local/share/nvim/site/autoload/plugins')\ncall plug#end()\n" >> $HOME/.config/nvim/init.vim
+wait
+dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 60;;
+
 2) 
 # Testing this metod
 # I have plans to combine all in a unique big condition
 # Seems useful to avoid looping or bugs mistakes
 
 gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
-cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink"
-;;
+cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink";;
 
 3) Plugdel;;
 4) Essentials;;
 5) Nvimconf;;
 6) exit 0;;
 esac
-
-
-
-Plugvim(){ 
-#    if [which "plug.vim">/dev/null]
-#    This is my original solution
-#    Try to fix the condition with this alternative solution:
-    if [-x "$(command -v plug.vim)"] ; then 
-    sh -c 'curl -O\"${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim\" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    wait
-    touch $HOME/.config/nvim/init.vim
-    wait
-    mkdir $HOME/.local/share/nvim/site/autoload/plugins/ 
-    echo -e "source $HOME/.local/share/nvim/site/autoload/plug.vim\ncall plug#begin('$HOME/.local/share/nvim/site/autoload/plugins')\ncall plug#end()\n" >> $HOME/.config/nvim/init.vim
-    wait
-    dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 60
-    wait
-    exit 0
-
-# Enabled else again. I'm editing this on Termux, and have a lot of incompatibilites
-# running normal on my Desktop
-
-else
- dialog --title "Plugvim setup" --msgbox "Vim plug already installed" 7 60
-    fi 
-}
-
-Gitlinkbackup(){
-
-# if [ -x "$(command -v git)"]; then 
-# i'm removing these conditions shit because is more causing bugs than helping
-gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
-    cd $HOME/.local/share/nvim/site/autoload/ && git clone "$gitlink"
-}
-
+    done
+    
 Plugdel(){
         choice=$(dialog --title "Choose a plugin to Uninstall" --output-fd 1 --dselect $HOME/.local/share/nvim/site/autoload/plugins/ 7 60)
         wait
