@@ -28,18 +28,16 @@ dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 60;;
 gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
 cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink";;
 
-3) Plugdel;;
+3) choice=$(dialog --title "Choose a plugin to Uninstall" --output-fd 1 --dselect $HOME/.local/share/nvim/site/autoload/plugins/ 7 60)
+wait
+rm -rf "$choice";;
 4) Essentials;;
 5) Nvimconf;;
 6) exit 0;;
 esac
-    done
+    done 
     
-Plugdel(){
-        choice=$(dialog --title "Choose a plugin to Uninstall" --output-fd 1 --dselect $HOME/.local/share/nvim/site/autoload/plugins/ 7 60)
-        wait
-        rm -rf "$choice"
-}
+
 
 Essentials(){
     while true; do
