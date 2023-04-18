@@ -31,34 +31,27 @@ cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink";;
 3) choice=$(dialog --title "Choose a plugin to Uninstall" --output-fd 1 --dselect $HOME/.local/share/nvim/site/autoload/plugins/ 7 60)
 wait
 rm -rf "$choice";;
-4) Essentials;;
+
+4) essentials=$(dialog --menu 'Recomended plugins' 15 50 40
+1 'Ale debugger'
+2 'fugitive git integration'
+3 'vim polyglot'
+4 'Exit'
+2>&1 >/dev/tty)
+case essentials in
+1) cd $HOME/.local/share}/nvim/site/autoload/plug.vim
+git clone https://github.com/dense-analysis/ale.git;;
+2)cd $HOME/.local/share}/nvim/site/autoload/plug.vim
+git clone https://github.com/tpope/vim-fugitive.git;;
+3)cd $HOME/.local/share}/nvim/site/autoload/plug.vim
+git clone https://github.com/sheerun/vim-polyglot.git;;
+4) exit 0
+;;
 5) Nvimconf;;
 6) exit 0;;
-esac
-    done 
-    
+esac 
+$menubox 
 
-
-Essentials(){
-    while true; do
-    essentials=$(dialog --menu 'Recomended plugins' 15 50 40 \
-    1 'Ale debugger' \
-    2 'fugitive git integration' \
-    3 'vim polyglot' \
-    4 'Exit' \
-    2>&1 >/dev/tty)
-    case essentials in
-    1) cd $HOME/.local/share}/nvim/site/autoload/plug.vim
-    git clone https://github.com/dense-analysis/ale.git;;
-    2)cd $HOME/.local/share}/nvim/site/autoload/plug.vim
-    git clone https://github.com/tpope/vim-fugitive.git;;
-    3)cd $HOME/.local/share}/nvim/site/autoload/plug.vim
-    git clone https://github.com/sheerun/vim-polyglot.git;;
-    4) exit 0;;
-    esac
-done
-
-}
 
 
 Nvimconf(){
@@ -138,3 +131,5 @@ case nvimconf in
 esac
     done
 }
+esac 
+ 
