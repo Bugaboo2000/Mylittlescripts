@@ -21,13 +21,7 @@ wait
 dialog --title "Plugvim setup" --msgbox "Vim plug installed" 7 60;;
 
 
-2) 
-# Testing this metod
-# I have plans to combine all in a unique big condition
-# Seems useful to avoid looping or bugs mistakes
-
-gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
-cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink";;
+2)$PlugInstall;;
 
 3) choice=$(dialog --title "Choose a plugin to Uninstall" --output-fd 1 --dselect $HOME/.local/share/nvim/site/autoload/plugins/ 7 60)
 wait
@@ -52,7 +46,7 @@ git clone https://github.com/sheerun/vim-polyglot.git;;
 2 'Enable "cursorline' \
 3 'Enable syntax' \
 4 'Change colorscheme' \
-5 'Manual settings' \
+5 'Manual settings' \I
 6 'Return' \
 7 'Exit' \
 2>&1 >/dev/tty)
@@ -114,3 +108,9 @@ case nvimconf in
 6) $menubox;;
 7) exit 0 ;;
 
+
+PlugInstall()
+{
+gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
+cd $HOME/.local/share/nvim/site/autoload/plug.vim && git clone "$gitlink"
+}
