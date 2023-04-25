@@ -7,8 +7,9 @@ menubox=$(dialog --menu 'Plugvim helper' 15 50 40 \
 2 'Install a plugin' \
 3 'Uninstall a plugin' \
 4 'Install recommended plugins' \
-5 'Configure nvim' \
-6 'Exit' \
+5 'Configure nvim manually' \
+6 'Change nvim settings' \
+7 'Exit' 
 2>&1 >/dev/tty)
 
 case $menubox in 
@@ -18,7 +19,8 @@ case $menubox in
 3)Plugdel;;
 4)Nvimconfig;;
 5) nvim $HOME/.config/nvim/init.vim;;
-6) exit 0;;
+6)Nvimconfig;;
+7) exit 0;;
 esac 
     
 }
@@ -115,4 +117,34 @@ esac
 }
 
 }
+Essentials() {
+    while true; do
+        autoinstall=$(dialog --menu 'Recomended plugins' 15 50 40 \
+        1 'Ale debugger' \
+        2 'fugitive git integration' \
+        3 'vim polyglot' \
+        4 'Exit' \
+        2>&1 >/dev/tty)
+
+        case $autoinstall in
+            1)
+                cd "$HOME/.local/share/nvim/site/autoload/plug.vim"
+                git clone https://github.com/dense-analysis/ale.git
+                ;;
+            2)
+                cd "$HOME/.local/share/nvim/site/autoload/plug.vim"
+                git clone https://github.com/tpope/vim-fugitive.git
+                ;;
+            3)
+                cd "$HOME/.local/share/nvim/site/autoload/plug.vim"
+                git clone https://github.com/sheerun/vim-polyglot.git
+                ;;
+            4)
+                break
+                ;;
+						esac
+							done
+
+}
+
 Menu 
