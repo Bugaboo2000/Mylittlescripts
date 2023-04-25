@@ -130,18 +130,19 @@ Essentials() {
             1)
                 cd "$HOME/.local/share/nvim/site/autoload/plug.vim"
                 git clone https://github.com/dense-analysis/ale.git
+                echo "Plug 'dense-analysis/ale'" >> $HOME/.config/nvim/init.vim 
                 ;;
             2)
                 cd "$HOME/.local/share/nvim/site/autoload/plug.vim"
                 git clone https://github.com/tpope/vim-fugitive.git
+                echo "Plug 'tpope/vim-fugitive'" >> $HOME/.config/nvim/init.vim
                 ;;
             3)
                 cd "$HOME/.local/share/nvim/site/autoload/plug.vim"
                 git clone https://github.com/sheerun/vim-polyglot.git
+                echo "Plug 'sheerun/vim-polyglot'" >> $HOME/.config/nvim/init.vim
                 ;;
-            4)
-                break
-                ;;
+            4)exit 0;;
 						esac
 							done
 
