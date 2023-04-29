@@ -9,7 +9,8 @@ menubox=$(dialog --menu 'Plugvim helper' 15 50 40 \
 4 'Install recommended plugins' \
 5 'Configure nvim manually' \
 6 'Change nvim settings' \
-7 'Exit' \
+7 'Auto installer' \
+8 'Exit' \
 2>&1 >/dev/tty)
 
 case $menubox in 
@@ -20,7 +21,8 @@ case $menubox in
 4)Nvimconfig;;
 5) nvim $HOME/.config/nvim/init.vim;;
 6)Nvimconfig;;
-7) exit 0;;
+7) Autoinstall;;
+8) exit 0;;
 esac
 
 }
@@ -161,4 +163,13 @@ Essentials() {
 
 }
 
+Autoinstall() {
+
+#nvimDir=$($HOME/.)
+
+svn export https://github.com/Bugaboo2000/Mylittlescripts/tree/main/neoplugins/plugins --force
+
+svn export https://github.com/Bugaboo2000/Mylittlescripts/tree/main/neoplugins/nvim
+
+}
 Menu 
