@@ -29,7 +29,7 @@ esac
 
 PlugInstall() {
 gitlink=$(dialog --title "Install a Plugin" --inputbox "Paste the github repository" 7 60 2>&1 >/dev/tty)
-cd $HOME/.local/share/nvim/site/autoload/plugins/ && git clone "$gitlink"
+git clone "$gitlink" $HOME/.local/share/nvim/site/autoload/plugins/
 dialog --title "Manual Intervention needed" --msgbox "Done, now point the plugin location and install with :PlugInstall" 7 60
 nvim $HOME/.config/nvim/init.vim
 }
@@ -166,10 +166,19 @@ Essentials() {
 Autoinstall() {
 
 #nvimDir=$($HOME/.)
+dialog --title "Confirmation" --yesno "Do you want to install preconfigured plugins?" 0 0
 
-svn export https://github.com/Bugaboo2000/Mylittlescripts/tree/main/neoplugins/plugins --force
+#if[$? -eq 0]; then
 
-svn export https://github.com/Bugaboo2000/Mylittlescripts/tree/main/neoplugins/nvim
+
+cd $HOME/.local/share/nvim/site/autoload/ && svn export https://github.com/Bugaboo2000/Mylittlescripts/tree/main/neoplugins/plugins --force
+cd $HOME/.local/share/nvim/site/autoload/ && svn export https://github.com/Bugaboo2000/Mylittlescripts/tree/main/neoplugins/nvim --force
+
+
+#else
+#dialog --title "Canceled by User" --msgbox "The installation is canceled by the user" 0 0
+
+# This statement is broken
 
 }
 Menu 
