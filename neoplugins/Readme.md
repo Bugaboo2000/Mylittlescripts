@@ -24,5 +24,15 @@ sudo pacman -S subversion git dialog --noconfirm
 
 <!-- Work in progress, more detailed documentation and ilustrated images of usage soon !-->
 
-<pre>svn export</li>
+~~~
+curl -O https://raw.githubusercontent.com/Bugaboo2000/Mylittlescripts/main/neoplugins/neoplugins.sh
+~~~
 
+### Set executable permissions
+~~~
+chmod +x neoplugins.sh
+~~~
+### Run the script
+~~~
+./updater.sh
+~~~
