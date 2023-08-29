@@ -24,7 +24,7 @@ sudo pacman -S curl--noconfirm
 
 ~~~
 curl -O https://raw.githubusercontent.com/Bugaboo2000/Mylittlescripts/main/bluetooth/bluetooth.sh
-
+~~~
 ### Set executable permissions
 ~~~
 chmod +x bluetooth.sh
