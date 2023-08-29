@@ -2,23 +2,23 @@
 
 This script is helpful to make neovim plugin setup and installation more easier with a interactive guided user interface. 
 
-## Download
+## Usage
 
 ### Setup git-svn and subversion:
 
 Debian Derivates:
 ~~~
-sudo apt install subversion git-svn git dialog -y
+sudo apt install subversion git-svn git dialog curl-y
 ~~~
 
 Fedora Derivates:
 ~~~
-sudo dnf install subversion git-svn git dialog
+sudo dnf install subversion git-svn git dialog curl
 ~~~
 
 Arch Linux Derivates:
 ~~~
-sudo pacman -S subversion git dialog --noconfirm
+sudo pacman -S subversion git dialog curl--noconfirm
 ~~~
 ### Download the script:
 

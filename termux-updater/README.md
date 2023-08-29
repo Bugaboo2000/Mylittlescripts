@@ -4,7 +4,7 @@ This is a graphical package updater for Termux is an excellent tool for anyone l
 
 Download the files:
 ~~~
-curl -O https://raw.githubusercontent.com/Bugaboo2000/Mylittlescripts/main/termux-updater/updater.sh </pre>
+curl -O https://raw.githubusercontent.com/Bugaboo2000/Mylittlescripts/main/termux-updater/updater.sh 
 ~~~
 Mark as Executable:
 ~~~
