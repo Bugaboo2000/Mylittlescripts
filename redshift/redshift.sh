@@ -20,6 +20,21 @@ break;;
 esac
     done    
 
+locate(){
+
+if[find ~/ -type f -name "*redshift.conf"] then;
+exit 0;
+
+}
+
+
+deps(){
+if[-x "$(command -v find)"] then;
+
+$locate 
+
+}
+
 
 
 
