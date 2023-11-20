@@ -1,13 +1,28 @@
 #!/bin/bash
 
-# activate redshift
 
-redshift -O 5500
 
-#deactivate redshift
+while true; do
+read -p "Do you want to enable reshift?[Y/n]" Yn
+    case $Yn in 
+    
+[Yy]*)  
 
-source disable.sh
+redshift -O 5500;
+break;;
 
-#create a config file
 
-touch ~/.config/redshift.conf
+[Nn]*)
+redshift -x;
+break;;
+
+*)
+esac
+    done    
+
+
+
+
+
+
+
